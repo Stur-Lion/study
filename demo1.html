@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  function observe(value, cb) {
+    const that = this;
+    Object.keys(value).forEach((key) => {
+      Object.defineProperty(that, key, {
+        enumerable: true,
+        configurable: true,
+        get: () => {
+          return value[key]
+        },
+        set: newVal => {
+          this. = newVal;
+          cb();
+        }
+      })
+    })
+  }
+
+  class Vue {
+    constructor(options) {
+      // this._data = options.data;
+      // observe(this._data, options.render);
+      observe.call(this, options.data)
+    }
+  }
+
+  let app = new Vue({
+    el: '#app',
+    data: {
+      text: 'text',
+      text2: 'text2'
+    },
+    render() {
+      console.log("render");
+    }
+  })
+
+  console.log(app._data.text);
+
+</script>
